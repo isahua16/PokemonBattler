@@ -16,3 +16,4 @@ for(let i = 0; i < select_button.length; i++)
 {
     select_button[i].addEventListener(`click`, select_pokemon);
 }
+
