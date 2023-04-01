@@ -9,8 +9,10 @@ function user_attack(event)
         computer_health = 0;
         computer_health_display[`innerHTML`] = `${computer_health} HP`;
         title[`innerHTML`] = `You have won the battle!`;
-        Cookies.remove(`computer_health`);
-        Cookies.remove(`user_health`);
+        for(let i = 0; i < attack_button.length; i++)
+        {
+            attack_button[i].remove();
+        }
         return;
     }
     else
@@ -27,6 +29,10 @@ function user_attack(event)
         title[`innerHTML`] = `You have lost the battle!`
         Cookies.remove(`computer_health`);
         Cookies.remove(`user_health`);
+        for(let i = 0; i < attack_button.length; i++)
+        {
+            attack_button[i].remove();
+        }
         return;
     }
     else
