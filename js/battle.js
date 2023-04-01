@@ -44,7 +44,7 @@ function user_attack(event)
 
 function random_integer_between(min, max)
 {
-    return Math.floor(Math.random() * (max-min) + min);
+    return Math.floor(Math.random() * (max-min + 1) + min);
 }
 
 function reset_game(event)
@@ -54,13 +54,7 @@ function reset_game(event)
     Cookies.remove(`selected_pokemon`);
 }
 
-let computer_pokemon = {
-    name: `Pikachu`,
-    health_points: 50,
-    primary_attack: `Thunder Shock`,
-    primary_attack_power: 5,
-    image_url: `/images/pikachu.png`
-}
+let computer_pokemon = pokemon_roster[random_integer_between(0, pokemon_roster.length - 1)];
 
 //Initialize Computer Pokemon Health
 let computer_health_json = Cookies.get(`computer_health`);
