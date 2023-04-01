@@ -35,7 +35,7 @@ let pokemon_roster = [
         image_url: `/images/rattata.png`
     },
     {
-        name: `spearow`,
+        name: `Spearow`,
         health_points: 18,
         image_url: `/images/spearow.png`,
     },

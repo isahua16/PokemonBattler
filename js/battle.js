@@ -54,7 +54,7 @@ function user_attack(event)
 
 function random_integer_between(min, max)
 {
-    return Math.floor(Math.random() * (max-min + 1) + min);
+    return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 function reset_game(event)
@@ -62,13 +62,29 @@ function reset_game(event)
     Cookies.remove(`computer_health`);
     Cookies.remove(`user_health`);
     Cookies.remove(`selected_pokemon`);
+    Cookies.remove(`computer_pokemon`);
 }
 
-let computer_pokemon = pokemon_roster[random_integer_between(0, pokemon_roster.length - 1)];
+//Select a computer pokemon from the selection list. The random_integer_between function will choose a number between 0 and the legnth of the pokemon roster - 1 (to account for the 0 base array).
 
-//Initialize Computer Pokemon Health
+let computer_pokemon_json = Cookies.get(`computer_pokemon`);
+let computer_pokemon;
+if (computer_pokemon_json !== undefined)
+{
+    computer_pokemon = JSON.parse(computer_pokemon_json);
+}
+else
+{
+    computer_pokemon = pokemon_roster[random_integer_between(0, pokemon_roster.length - 1)];
+    Cookies.set(`computer_pokemon`, JSON.stringify(computer_pokemon));
+}
+
+
+//Initialize Computer Pokemon Health. First, get the computer health cookie.
 let computer_health_json = Cookies.get(`computer_health`);
+// Set the computer health to the computer's pokemon set health points.
 let computer_health = computer_pokemon[`health_points`];
+// If the computer health cookie has a value other than undefined, set computer health to that value. This behaviour will recover the last game that was not finished.
 if(computer_health_json !== undefined)
 {
     computer_health = JSON.parse(computer_health_json);
