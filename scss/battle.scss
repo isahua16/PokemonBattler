@@ -1,0 +1,24 @@
+@use "general";
+@use "header";
+
+img {
+    width: 400px;
+}
+
+#pokemon_arena {
+    width: 90%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+#flee_button {
+    margin-top: 50px;
+    font-size: 1.5rem;
+}
+
+.pokemon_card {
+    width: 90%;
+    display: grid;
+    place-items: center;
+    text-align: center;
+}

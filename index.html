@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,11 +21,44 @@
   <meta property="twitter:image" content="*" />
   <link rel="shortcut icon" href="*" type="image/png" />
   <link rel="stylesheet" href="/css/style.css" />
-  <title>PokemonBattler</title>
+  <title>Select you Pokemon | PokemonBattler</title>
 </head>
 
 <body>
-  <h1>PokemonBattler</h1>
+  <header id="page_header">
+    <h1>SELECT YOUR POKEMON:</h1>
+  </header>
+  <section id="pokemon_team">
+    <article class="pokemon_card">
+      <img src="/images/charmander.png" alt="Image of Charmander">
+      <h3>Charmander</h3>
+      <p>Charmander is a fire type Pokémon and attacks his oppenents with powerful fire-based moves.
+      </p>
+      <button pokemon_name="Charmander"
+        pokemon_description="Charmander is a fire type Pokémon and attacks his oppenents with powerful fire-based moves like Flamethrower."
+        pokemon_health_point="60" primary_attack_name="Flamethrower" primary_attack_power="8"
+        pokemon_image_url="/images/charmander.png" class="select_button">SELECT</button>
+    </article>
+    <article class="pokemon_card">
+      <img src="/images/bulbasaur.png" alt="Image of Bulbasaur">
+      <h3>Bulbasaur</h3>
+      <p>Bulbasaur is a grass type Pokémon that releases poison attacks with his tentacles.</p>
+      <button pokemon_name="Bulbasaur"
+        pokemon_description="Bulbasaur is a grass type Pokémon that releases poison attacks with his tentacles."
+        pokemon_health_point="80" primary_attack_name="Vine Whip" primary_attack_power="5"
+        pokemon_image_url="/images/bulbasaur.png" class="select_button">SELECT</button>
+    </article>
+    <article class="pokemon_card">
+      <img src="/images/squirtle.png" alt="Image of Squirtle">
+      <h3>Squirtle</h3>
+      <p>Squirtle is a water-type Pokémon with a shell on its back and the ability to shoot water from its mouth.</p>
+      <button pokemon_name="Squirtle"
+        pokemon_description="Squirtle is a water-type Pokémon with a shell on its back and the ability to shoot water from its mouth."
+        pokemon_health_point="70" primary_attack_name="Bubble" primary_attack_power="6"
+        pokemon_image_url="/images/squirtle.png" class="select_button">SELECT</button>
+    </article>
+  </section>
+  <a href="/pages/battle.html"><button id="fight_button">READY TO FIGHT</button></a>
   <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
   <script src="/js/app.js"></script>
 </body>

@@ -1,0 +1,26 @@
+@use "general";
+@use "header";
+
+img {
+    width: 200px;
+}
+
+#pokemon_team {
+    width: 90%;
+    display: grid;
+    justify-items: center;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.pokemon_card {
+    width: 90%;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    grid-template-rows: 220px 50px 100px 30px;
+}
+
+#fight_button {
+    margin-top: 50px;
+    font-size: 1.5rem;
+}

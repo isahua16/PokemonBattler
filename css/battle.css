@@ -17,14 +17,18 @@ body {
 }
 
 img {
-  width: 200px;
+  width: 400px;
 }
 
-#pokemon_team {
+#pokemon_arena {
   width: 90%;
   display: grid;
-  justify-items: center;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+#flee_button {
+  margin-top: 50px;
+  font-size: 1.5rem;
 }
 
 .pokemon_card {
@@ -32,12 +36,6 @@ img {
   display: grid;
   place-items: center;
   text-align: center;
-  grid-template-rows: 220px 50px 100px 30px;
 }
 
-#fight_button {
-  margin-top: 50px;
-  font-size: 1.5rem;
-}
-
-/*# sourceMappingURL=style.css.map */
+/*# sourceMappingURL=battle.css.map */
