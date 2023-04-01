@@ -19,7 +19,7 @@ function user_attack(event)
         Cookies.set(`computer_health`, computer_health);   
     }
     
-    user_health = user_health - Number(computer_pokemon[`primary_attack_power`]);        
+    user_health = user_health - random_integer_between(5, 30);        
     if(user_health <= 0)
     {
         user_health = 0;
@@ -34,6 +34,11 @@ function user_attack(event)
         user_health_display[`innerHTML`] = `${user_health} HP`;
         Cookies.set(`user_health`, user_health);
     }    
+}
+
+function random_integer_between(min, max)
+{
+    return Math.floor(Math.random() * (max-min) + min);
 }
 
 function reset_game(event)
