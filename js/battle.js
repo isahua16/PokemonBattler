@@ -2,8 +2,18 @@ function user_attack(event)
 {
     let user_health_display = document.querySelector(`#user_health_display`);
     let computer_health_display = document.querySelector(`#computer_health_display`);
+    if((user_mana - Number(event[`target`].getAttribute(`attack_mana`))) >= 0)
+    {
+        title[`innerHTML`] = `Fight your Opponent!`;
+        user_mana = user_mana - Number(event[`target`].getAttribute(`attack_mana`));
+        computer_health = computer_health - Number(event[`target`].getAttribute(`attack_power`));
+    }
+    else
+    {
+        title[`innerHTML`] = `You cannot cast this attack during this battle anymore`;
+        return;
+    }
 
-    computer_health = computer_health - Number(event[`target`].getAttribute(`attack_power`));
     if (computer_health <= 0)
     {
         computer_health = 0;
@@ -18,7 +28,7 @@ function user_attack(event)
     else
     {
         computer_health_display[`innerHTML`] = `${computer_health} HP`;
-        Cookies.set(`computer_health`, computer_health);   
+        Cookies.set(`computer_health`, JSON.stringify(computer_health));   
     }
     
     user_health = user_health - random_integer_between(5, 30);        
@@ -38,7 +48,7 @@ function user_attack(event)
     else
     {
         user_health_display[`innerHTML`] = `${user_health} HP`;
-        Cookies.set(`user_health`, user_health);
+        Cookies.set(`user_health`, JSON.stringify(user_health));
     }    
 }
 
@@ -75,6 +85,7 @@ computer_pokemon_display.insertAdjacentHTML(`afterbegin`,
 //Initialize User
 let user_health_json = Cookies.get(`user_health`);
 let user_health;
+let user_mana = 20;
 let selected_pokemon_json = Cookies.get(`selected_pokemon`);
 let selected_pokemon;
 
@@ -92,9 +103,9 @@ else
     `<img src="${selected_pokemon[`image_url`]}" alt="Image of ${selected_pokemon[`name`]}">
     <h2>${selected_pokemon[`name`]}</h2>
     <h3 id="user_health_display"></h3>
-    <button attack_power="${selected_pokemon[`primary_attack_power`]}" class="attack_button">${selected_pokemon[`primary_attack`]}:${selected_pokemon[`primary_attack_power`]}</button>
-    <button attack_power="${selected_pokemon[`secondary_attack_power`]}" class="attack_button"> ${selected_pokemon[`secondary_attack`]}:${selected_pokemon[`secondary_attack_power`]}</button>
-    <button attack_power="${selected_pokemon[`tertiary_attack_power`]}" class="attack_button">${selected_pokemon[`tertiary_attack`]}:${selected_pokemon[`tertiary_attack_power`]}</button>`);
+    <button attack_mana="0" attack_power="${selected_pokemon[`primary_attack_power`]}" class="attack_button">${selected_pokemon[`primary_attack`]}:${selected_pokemon[`primary_attack_power`]}</button>
+    <button attack_mana="5" attack_power="${selected_pokemon[`secondary_attack_power`]}" class="attack_button"> ${selected_pokemon[`secondary_attack`]}:${selected_pokemon[`secondary_attack_power`]}</button>
+    <button attack_mana="10" attack_power="${selected_pokemon[`tertiary_attack_power`]}" class="attack_button">${selected_pokemon[`tertiary_attack`]}:${selected_pokemon[`tertiary_attack_power`]}</button>`);
 
     if(user_health_json !== undefined)
     {
