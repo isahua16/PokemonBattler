@@ -6,6 +6,10 @@ function select_pokemon(event)
         health_points: event[`target`].getAttribute(`pokemon_health_points`),
         primary_attack: event[`target`].getAttribute(`primary_attack_name`),
         primary_attack_power: event[`target`].getAttribute(`primary_attack_power`),
+        secondary_attack: event[`target`].getAttribute(`secondary_attack_name`),
+        secondary_attack_power: event[`target`].getAttribute(`secondary_attack_power`),
+        tertiary_attack: event[`target`].getAttribute(`tertiary_attack_name`),
+        tertiary_attack_power: event[`target`].getAttribute(`tertiary_attack_power`),
         image_url: event[`target`].getAttribute(`pokemon_image_url`)
     }
     Cookies.set(`selected_pokemon`, JSON.stringify(selected_pokemon));

@@ -36,6 +36,13 @@ function user_attack(event)
     }    
 }
 
+function reset_game(event)
+{
+    Cookies.remove(`computer_health`);
+    Cookies.remove(`user_health`);
+    Cookies.remove(`selected_pokemon`);
+}
+
 let computer_pokemon = {
     name: `Pikachu`,
     health_points: 50,
@@ -80,7 +87,9 @@ else
     `<img src="${selected_pokemon[`image_url`]}" alt="Image of ${selected_pokemon[`name`]}">
     <h2>${selected_pokemon[`name`]}</h2>
     <h3 id="user_health_display"></h3>
-    <button attack_power="${selected_pokemon[`primary_attack_power`]}" id="primary_attack_button">${selected_pokemon[`primary_attack`]}:${selected_pokemon[`primary_attack_power`]}</button>`);
+    <button attack_power="${selected_pokemon[`primary_attack_power`]}" class="attack_button">${selected_pokemon[`primary_attack`]}:${selected_pokemon[`primary_attack_power`]}</button>
+    <button attack_power="${selected_pokemon[`secondary_attack_power`]}" class="attack_button"> ${selected_pokemon[`secondary_attack`]}:${selected_pokemon[`secondary_attack_power`]}</button>
+    <button attack_power="${selected_pokemon[`tertiary_attack_power`]}" class="attack_button">${selected_pokemon[`tertiary_attack`]}:${selected_pokemon[`tertiary_attack_power`]}</button>`);
 
     if(user_health_json !== undefined)
     {
@@ -94,10 +103,14 @@ else
     }
 }
 
-let primary_attack = document.querySelector(`#primary_attack_button`);
-primary_attack.addEventListener(`click`, user_attack);
+let attack_button = document.querySelectorAll(`.attack_button`);
+for(let i = 0; i < attack_button.length; i++)
+{
+    attack_button[i].addEventListener(`click`, user_attack);
+}
 
-
+let flee_button = document.querySelector(`#flee_button`);
+flee_button.addEventListener(`click`, reset_game);
 
 
 
