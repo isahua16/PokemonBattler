@@ -17,7 +17,7 @@ body {
 }
 
 img {
-  width: 400px;
+  width: 300px;
 }
 
 #pokemon_arena {
@@ -36,6 +36,7 @@ img {
   display: grid;
   place-items: center;
   text-align: center;
+  grid-template-rows: 330px 50px 50px 50px;
 }
 
 /*# sourceMappingURL=battle.css.map */
