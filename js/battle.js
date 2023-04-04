@@ -9,16 +9,18 @@ function user_attack(event)
     {
         
         //This HTML insertion is to reset the message to the original if this happens to not be the first attack.
-        title[`innerHTML`] = `Fight your Opponent!`;
+        title[`innerHTML`] = `Fight your opponent!`;
         
         //If the user has enough mana, update the mana based on the cost of that ability which comes from the button attribute.
         user_mana = user_mana - Number(event[`target`].getAttribute(`attack_mana`));
+        user_mana_json = JSON.stringify(user_mana);
+        Cookies.set(`user_mana`, user_mana_json);
         //And deal the damage to the computer's health.
         computer_health = computer_health - Number(event[`target`].getAttribute(`attack_power`));
     }
     else
     {
-        //if the player does not have enough mana, give them a message and leave the function.
+        //if the player does not have enough mana, give them a message and exit the function.
         title[`innerHTML`] = `You cannot cast this attack during this battle anymore`;
         return;
         //This returns undefined, but we don't store that value because we don't need it.
@@ -29,9 +31,10 @@ function user_attack(event)
     {
         //If the computer's health is 0 or lower, set the computer's health to 0 and display it on the page
         computer_health = 0;
+        Cookies.set(`computer_health`, JSON.stringify(computer_health));  
         computer_health_display[`innerHTML`] = `${computer_health} HP`;
         //Display a win message to the user.
-        title[`innerHTML`] = `You have won the battle!`;
+        title[`innerHTML`] = `You have won the game!`;
         // Loop over the attack button array to remove them from the page.
         for(let i = 0; i < attack_button.length; i++)
         {
@@ -43,7 +46,7 @@ function user_attack(event)
     }
     else
     {
-        //If the computer has more than 0 health, display the the health on the page and store that new value in a cookie.
+        //If the computer has more than 0 health, display the health on the page and store that new value in a cookie.
         computer_health_display[`innerHTML`] = `${computer_health} HP`;
         Cookies.set(`computer_health`, JSON.stringify(computer_health));   
     }
@@ -55,37 +58,44 @@ function user_attack(event)
     {
         //If the user's health is 0 or below, set the user's health to 0 and display that value.
         user_health = 0;
+        Cookies.set(`user_health`, JSON.stringify(user_health));
         user_health_display[`innerHTML`] = `${user_health} HP`;
         //Give the player a defeat message
-        title[`innerHTML`] = `You have lost the battle!`
-
+        title[`innerHTML`] = `You have lost the game!`
+        //Remove the attack buttons from the page.
         for(let i = 0; i < attack_button.length; i++)
         {
             attack_button[i].remove();
         }
+        //Exit the function at this point
         return;
     }
     else
     {
+        //Display the user_health in the HTML and save it inside a cookie.
         user_health_display[`innerHTML`] = `${user_health} HP`;
+        user_health_json = JSON.stringify(user_health);
         Cookies.set(`user_health`, JSON.stringify(user_health));
     }    
 }
 
+//A function that randomily returns an integer number between min and max numbers provided. This is used to randomize the computer pokemon attacks and also the selection of the computer pokemon.
 function random_integer_between(min, max)
 {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
+//Function attached to the leave button which resets the parameters.
 function reset_game(event)
 {
     Cookies.remove(`computer_health`);
     Cookies.remove(`user_health`);
     Cookies.remove(`selected_pokemon`);
     Cookies.remove(`computer_pokemon`);
+    Cookies.remove(`user_mana`);
 }
 
-//Get the computer selection cookie.
+//Get the computer pokemon selection cookie.
 let computer_pokemon_json = Cookies.get(`computer_pokemon`);
 let computer_pokemon;
 if (computer_pokemon_json !== undefined)
@@ -128,6 +138,12 @@ let user_health_json = Cookies.get(`user_health`);
 let user_health;
 //Initialize a mana amount for the user that will control the amount of times they can cast certain abilities.
 let user_mana = 20;
+let user_mana_json = Cookies.get(`user_mana`);
+if(user_mana_json !== undefined)
+{
+    user_mana = JSON.parse(user_mana_json);
+}
+
 //Get the selected pokemon cookie
 let selected_pokemon_json = Cookies.get(`selected_pokemon`);
 //Create an empty variable that will hold the pokemon object below
@@ -136,14 +152,9 @@ let selected_pokemon;
 let title = document.querySelector(`#title`);
 //Get the HTML element that will display the user's pokemon information and abilities
 let user_pokemon = document.querySelector(`#user_pokemon`);
-if(selected_pokemon_json === undefined)
+if(selected_pokemon_json !== undefined)
 {
-    //If the selected_pokemon cookie is empty, tell the player that they have not selection a pokemon.
-    title[`innerHTML`] = `You have not selected a Pokémon!`;
-}
-else
-{
-    //otherwise, assign the cookie's value to the selected_pokemons variable declared above.
+    //Assign the cookie's value to the selected_pokemons variable declared above if it exists.
     selected_pokemon = JSON.parse(selected_pokemon_json);
     //Insert the pokemon's information onto the page.
     user_pokemon.insertAdjacentHTML(`afterbegin`,
@@ -178,6 +189,30 @@ for(let i = 0; i < attack_button.length; i++)
 let flee_button = document.querySelector(`#flee_button`);
 flee_button.addEventListener(`click`, reset_game);
 
+// This logic makes sure to display the right message if the player refreshes the page and the cookies alright has a win or loss state. It also removes the attack buttons if those states are true because a player could potentially cheat if they lost by refreshing the page at 0 health, and keep attacking their oppenent until the enemy had 0 health.
+if(user_health === 0)
+{
+    title[`innerHTML`] = `You have lost the game!`;
 
+    for(let i = 0; i < attack_button.length; i++)
+    {
+        attack_button[i].remove();
+    }
+} else if (computer_health === 0)
+{
+    title[`innerHTML`] = `You have won the game!`;
+
+    for(let i = 0; i < attack_button.length; i++)
+    {
+        attack_button[i].remove();
+    }
+} else if (selected_pokemon_json === undefined)
+{
+    title[`innerHTML`] = `You have not selected a pokémon!`;
+}
+else
+{
+    title[`innerHTML`] = `Fight your opponent!`;
+}
 
 

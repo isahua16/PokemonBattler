@@ -1,5 +1,6 @@
 function select_pokemon(event)
 {
+    //Create a pokemon object and save it as the user selection in a cookie.
     let selected_pokemon = {
         name: event[`target`].getAttribute(`pokemon_name`),
         description: event[`target`].getAttribute(`pokemon_description`),
@@ -15,6 +16,7 @@ function select_pokemon(event)
     Cookies.set(`selected_pokemon`, JSON.stringify(selected_pokemon));
 }
 
+//Add event listeners to the selection buttons.
 let select_button = document.querySelectorAll(`.select_button`);
 for(let i = 0; i < select_button.length; i++)
 {
